@@ -1,0 +1,11 @@
+{
+  "candidate": "v1",
+  "candidate_mae": {
+    "tree": 1.4390274765003614,
+    "zero": 1.5695830320559172,
+    "median": 1.5209086526873947
+  },
+  "previous": null,
+  "reason": "Primeira versão de referência.",
+  "activated": true
+}

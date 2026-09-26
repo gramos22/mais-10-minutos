@@ -1,0 +1,5 @@
+* text=auto eol=lf
+# Preserve os bytes usados pelos hashes, inclusive em clones no Windows.
+/data/arrival_times.csv -text
+/artifacts/** -text
+*.png binary

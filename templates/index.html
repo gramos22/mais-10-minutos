@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#123f35">
+  <meta name="description" content="Explore estimativas históricas de atraso da linha C de Seattle. Um projeto acadêmico com dados de 2016.">
+  <title>+10 minutos · Cada minuto conta</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#consulta">Ir para a consulta</a>
+<header class="header"><div class="shell header-inner">
+  <a class="brand" href="#inicio" aria-label="Mais dez minutos, início"><span class="brand-icon">+10</span><span>minutos<span class="brand-dot">.</span></span></a>
+  <nav aria-label="Navegação principal"><a class="nav-active" href="#consulta">Consultar</a><a href="#modelo">Sobre o modelo <span aria-hidden="true">↗</span></a></nav>
+  <span class="academic"><i></i> Projeto acadêmico</span>
+</div></header>
+<main id="inicio" class="shell">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-copy"><p class="eyebrow"><span class="small-line"></span> UM OLHAR PARA O TEMPO DE ESPERA</p>
+      <h1 id="hero-title">Cada minuto conta.<br><span>Entenda o seu trajeto.</span></h1>
+      <p class="hero-description">Explore o que o histórico dos ônibus de Seattle revela sobre atrasos. Escolha um cenário e veja uma estimativa com inteligência artificial.</p>
+      <div class="hero-meta"><span><span aria-hidden="true">◷</span> Dados de 2016</span><span><span aria-hidden="true">◇</span> Sem cadastro</span><span><span aria-hidden="true">↗</span> Seattle, EUA</span></div>
+    </div>
+    <div class="route-art" aria-hidden="true">
+      <svg viewBox="0 0 420 240" fill="none"><defs><pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#b2c9be"/></pattern></defs><rect width="420" height="240" fill="url(#grid)"/>
+        <path d="M-10 150H95Q120 150 120 125V74Q120 50 145 50H440M45 0V210Q45 230 65 230H420M220 0V240M320 0V240M0 190H420M0 100H420" stroke="#dfe8df" stroke-width="13"/>
+        <path d="M5 202H118Q155 202 155 165V116Q155 87 188 87H281Q317 87 317 51V5" stroke="#afc5ba" stroke-width="3" stroke-dasharray="5 7"/>
+        <path d="M155 168V116Q155 87 188 87H267" stroke="#226a54" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="155" cy="168" r="9" fill="#f7f9f2" stroke="#226a54" stroke-width="4"/><circle cx="266" cy="87" r="16" fill="#dcebbf"/><circle cx="266" cy="87" r="7" fill="#226a54"/>
+        <rect x="206" y="122" width="178" height="63" rx="13" fill="#fff" stroke="#dce5dc"/><rect x="220" y="135" width="35" height="35" rx="9" fill="#226a54"/><text x="237" y="159" text-anchor="middle" fill="white" font-size="21" font-family="Arial" font-weight="bold">C</text><text x="267" y="148" fill="#274c40" font-size="12" font-family="Arial" font-weight="bold">3RD AVE &amp; PIKE ST</text><text x="267" y="166" fill="#687c70" font-size="11" font-family="Arial">Ponto 431 · sentido sul</text>
+        <rect x="65" y="37" width="90" height="28" rx="14" fill="#e5eddb"/><text x="110" y="55" text-anchor="middle" fill="#46614e" font-size="10" font-family="Arial" letter-spacing="2">SEATTLE</text>
+      </svg><span class="art-caption">Um ponto. Muitos dias. Novas perspectivas.</span>
+    </div>
+  </section>
+  <div class="context-strip"><span class="info-icon" aria-hidden="true">i</span><p><strong>Uma viagem pelo histórico.</strong> Esta é uma demonstração acadêmica, sem informações em tempo real.</p><span class="period">26 mar — 27 mai 2016</span></div>
+  <section id="consulta" class="workspace" aria-label="Consultar estimativa">
+    <div class="card query-card">
+      <div class="section-heading"><span class="step">01</span><span>SEU CENÁRIO</span></div>
+      <h2>Quando você partiria?</h2><p class="muted intro">Escolha um dia e um horário para explorar.</p>
+      <div class="route-summary"><span class="route-badge">C</span><div><strong>Linha C <span>· Sentido sul</span></strong><p>3RD AVE &amp; PIKE ST <span>· Ponto 431</span></p></div><span class="route-arrow" aria-hidden="true">↘</span></div>
+      <form id="query-form">
+        <label for="day">Dia da semana</label><div class="select-wrap"><select id="day" name="day" required disabled><option value="">Carregando dias…</option></select><span aria-hidden="true">⌄</span></div>
+        <label for="time">Horário programado</label><div class="select-wrap"><select id="time" name="time" required disabled><option value="">Selecione um dia</option></select><span aria-hidden="true">⌄</span></div>
+        <p class="field-hint"><span aria-hidden="true">◷</span> Horário local de Seattle. Somente partidas da base.</p>
+        <button id="submit" class="primary" type="submit" disabled><span>Estimar desvio</span><span aria-hidden="true">↗</span></button>
+      </form>
+      <p id="error" class="error" role="alert" hidden></p>
+      <button id="retry" class="text-button" type="button" hidden>Tentar carregar novamente ↻</button>
+      <p class="privacy"><span aria-hidden="true">◇</span> Sem localização ou dados pessoais.</p>
+    </div>
+    <div class="card result-card" aria-live="polite" aria-atomic="true" id="result-region">
+      <div class="section-heading"><span class="step">02</span><span>SUA ESTIMATIVA</span><span id="result-badge" class="subtle-pill">Modelo de regressão</span></div>
+      <div id="empty-state" class="empty-state"><div class="clock-face" aria-hidden="true"><span></span></div><h2>Um pouco mais de contexto<br>para o seu tempo.</h2><p>Selecione o dia e o horário ao lado.<br>A estimativa e o histórico aparecerão aqui.</p><span class="empty-foot">HISTÓRICO REAL · ESTIMATIVA COM IA</span></div>
+      <div id="result" hidden>
+        <p id="scenario" class="scenario"></p>
+        <div class="estimate-line"><span id="minutes" class="estimate-number"></span><div><strong id="kind"></strong><span>minutos estimados</span></div></div>
+        <p id="prediction-description" class="prediction-description"></p>
+        <div class="history-head"><h3>O que aconteceu no histórico</h3><span id="hour-window"></span></div>
+        <div id="history-stats" class="stats"><div><strong id="count"></strong><span>observações</span></div><div><strong id="median"></strong><span>desvio mediano</span></div><div><strong id="proportion"></strong><span>atrasos &gt; 5 min</span></div></div>
+        <p id="no-history" hidden>Não há observações históricas para esta faixa.</p>
+        <p id="small-sample" class="field-hint" hidden>Poucas observações nesta faixa. Interprete este resumo com cautela.</p>
+        <p class="history-note">Estatísticas observadas para esse dia da semana e faixa de uma hora. Não são probabilidades previstas pelo modelo.</p>
+        <p class="estimate-caution"><span aria-hidden="true">i</span> Um padrão de 2016, não uma previsão de chegada em tempo real. A estimativa pode apresentar erros.</p>
+      </div>
+    </div>
+  </section>
+  <section class="transparency" id="modelo" aria-labelledby="model-title">
+    <div class="transparency-title"><div><p class="eyebrow">DADOS ABERTOS, LIMITES CLAROS</p><h2 id="model-title">Por trás de cada estimativa</h2></div><span id="version" class="version">Modelo em carregamento</span></div>
+    <div class="explanation-grid"><article><span class="explain-icon" aria-hidden="true">▤</span><h3>Um recorte da cidade</h3><p><span id="total-observations">6.547</span> registros da linha C, sentido sul, no ponto 431. Base histórica de <strong>26/03 a 27/05/2016</strong>, fornecida pelo Washington State Transportation Center.</p></article><article><span class="explain-icon" aria-hidden="true">⑂</span><h3>Uma árvore, duas entradas</h3><p>O modelo usa apenas <strong>dia da semana e horário programado</strong>. O horário realizado serve para calcular o atraso no treinamento e avaliar o erro.</p></article><article><span class="explain-icon" aria-hidden="true">◎</span><h3>Transparência no resultado</h3><p>O teste usa dias posteriores ao treinamento. Comparamos o erro da árvore com duas referências simples: atraso zero e mediana histórica.</p></article></div>
+    <details id="evaluation"><summary>Avaliação e ficha do modelo <span aria-hidden="true">+</span></summary><div id="model-content"><p class="muted">Carregando avaliação…</p></div></details>
+    <p class="source-note">Fonte: <a href="https://jakevdp.github.io/blog/2018/09/13/waiting-time-paradox/" target="_blank" rel="noopener noreferrer">Jake VanderPlas · The Waiting Time Paradox ↗</a></p>
+  </section>
+</main>
+<footer class="shell footer"><a class="brand footer-brand" href="#inicio"><span class="brand-icon">+10</span><span>minutos.</span></a><p>Tópicos em Computação I · 2026/2</p><span>Feito para explorar. Sem pressa.</span></footer>
+<noscript><p class="noscript">Ative o JavaScript para consultar os cenários e as estimativas.</p></noscript>
+</body></html>
