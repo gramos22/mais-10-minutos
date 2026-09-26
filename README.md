@@ -12,7 +12,7 @@ python -m venv .venv
 .\.venv\Scripts\python.exe app.py
 ```
 
-Abra **http://127.0.0.1:8000**. Encerre com `Ctrl+C`. Nesta entrega o ambiente virtual já foi instalado. Para iniciar novamente, também pode executar `powershell -ExecutionPolicy Bypass -File .\iniciar.ps1`.
+Abra **http://127.0.0.1:8000**. Encerre com `Ctrl+C`. Para iniciar novamente, execute `.\.venv\Scripts\python.exe app.py`.
 
 Em Linux/macOS, os equivalentes são `.venv/bin/python` e `.venv/bin/pip`. O servidor é Waitress, sem modo de depuração. `HOST` e `PORT` configuram a interface e a porta; o padrão local é `127.0.0.1:8000`.
 
@@ -65,7 +65,17 @@ A árvore é exportada em JSON, com validação de equivalência ao scikit-learn
 
 ## Verificação
 
+Para treinamento e testes, instale `requirements-dev.txt` ou o ambiente completo de referência em `requirements-lock.txt`. `requirements.txt` contém apenas as dependências de execução.
+
 ```powershell
 .\.venv\Scripts\python.exe -m pytest -q
 .\.venv\Scripts\python.exe scripts/benchmark.py
 ```
+
+## Publicar no Vercel
+
+Importe este repositório com o preset **Flask**, diretório raiz `./` e configurações de build do `vercel.json`. Não são necessárias variáveis de ambiente ou chaves de IA. A hospedagem utiliza Python 3.12 e o modelo previamente treinado em `artifacts/`.
+
+O build valida os hashes do modelo e da base limpa e copia `static/` para `public/static/`, preservando as URLs da interface. O treinamento não é executado na hospedagem. A base original, os testes e as dependências científicas ficam fora da função publicada.
+
+Após publicar, verifique `/health` e uma consulta na página. Para medir as 20 consultas HTTPS: `python scripts/benchmark.py --url https://seu-dominio --output performance-vercel.json`. Os pushes na branch de produção conectada ao Vercel geram novas implantações.
